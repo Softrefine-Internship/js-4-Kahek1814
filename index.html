@@ -1,13 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <!-- Css import -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Js import -->
     <script defer src="script.js"></script>
-    <title>Document</title>
+    <script defer src="formAction.js"></script>
+    <!-- Font Import -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+    <title>Expense - Tracker</title>
 </head>
+
 <body>
-    
+
+    <!-- Heading -->
+    <h1 class="heading">Expense Tracker</h1>
+    <!-- End Heading -->
+    <div class="container">
+        <section class="expenseForm">
+            <!-- Impl form -->
+            <form class="Form" action=""><!-- Here post method use to prevent a url transer -->
+                <h3 class="formHeading">Add/Edit Expense Data</h3>
+
+                <!-- Hiddent id becuse we need to hold the id when we are updating the value -->
+                <input type="hidden" name="id" id="">
+                <!-- Here we get a basic desctipon about payment -->
+                <input type="text" name="description" placeholder="Description">
+                <span class="descriptionError"></span>
+                <!-- Here we store amount for the expense -->
+                <input type="number" name="amount" placeholder="Amount">
+                <span class="numberError"></span>
+                <!-- This is DropDown for catagory -->
+                <select name="category" class="categoryDropDown">
+                    <option value="">Select Category</option>
+                </select>
+                <span class="catagoryError"></span>
+                <!-- THis is DropDown for PayementOption -->
+                <select name="paymentMethod" class="paymentmethod">
+                    <option value="">Select Payment Method</option>
+                </select>
+                <span class="paymentMethodError"></span>
+                <!-- Submit Button -->
+                <input type="submit" name="Button" id="" value="Add Expense">
+            </form>
+        </section>
+        <section class="displayData">
+            <div><h4>Today</h4 ><p class="today">0</p></div>
+            <div><h4>This Week</h4><p class="week">0</p></div>
+            <div><h4>This Month</h4><p class="month">0</p></div>
+            <div><h4>This Year</h4><p class="year">0</p></div>
+            <div><h4>Total Expense</h4><p class="total">0</p></div>
+        </section>
+        <section class="expenseTable">
+            <table class="table">
+                <tr>
+                    <th>Date</th>
+                    <th>InsertID</th>
+                    <th>Description</th>
+                    <th class="amountdata">Amount</th>
+                    <th>Category</th>
+                    <th>Payment Method</th>
+                    <th>Action</th>
+                </tr>
+            </table>
+        </section>
+    </div>
 </body>
+
 </html>

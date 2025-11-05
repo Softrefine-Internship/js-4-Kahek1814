@@ -13,7 +13,7 @@ Design and implement an intuitive and visually appealing UI for the Expense Trac
 - A drop-down menu to select the expense category.
 - A button to add the expense to the tracker.
 - A table to display the list of expenses, showing the name, amount, date, and category of each expense.
-- Total expense amount display.
+- Total expense amount display.  
 - Delete buttons for each expense entry to remove them from the tracker.
 
 2. Expense Addition and Deletion: When the user enters the expense details and clicks the "Add Expense" button, the app should add the expense to the table, update the total expense amount accordingly, and save the data to Local Storage. The user should also be able to delete expenses by clicking the corresponding delete button.

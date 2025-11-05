@@ -1,1 +1,244 @@
-/* write css here */
+/* global reset with font setting */
+* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Manrope", sans-serif;
+}
+
+/* Body */
+body {
+        /* background-color: #ECEFF1; */
+}
+
+/* End Body */
+/* Heading */
+.heading {
+        font-size: 38px;
+        font-weight: 100;
+        letter-spacing: -2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 18px;
+        background: linear-gradient(90deg, #00C853, #00BFA5, #2196F3);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+}
+
+/* End Heading */
+/* css for container */
+.container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+}
+
+/* END css for container*/
+
+
+
+/* css for section */
+
+/* Form heading */
+.formHeading {
+        font-weight: 100;
+        display: flex;
+        justify-content: center;
+        font-size: 24px;
+        letter-spacing: 1px;
+        margin-bottom: 12px;
+        background: linear-gradient(180deg, #00C853, #00BFA5, #2196F3);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+}
+
+/* End Form heading */
+
+/* css for left section */
+.expenseForm {
+        width: 50dvw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        align-items: center;
+        /* Here dvw becuse it adapt dynamic width  */
+}
+
+.Form {
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 12px;
+        border-radius: 12px;
+        box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+}
+
+.expenseTable {
+        width: 90dvw;
+        /* Here dvw becuse it adapt dynamic width  */
+
+}
+
+
+/* css for Table */
+
+/* Input box css */
+input,
+select {
+        padding: 8px;
+        border-radius: 8px;
+        border: 1px solid rgb(185, 185, 185);
+}
+
+input[type="submit"] {
+        border: none;
+        background-color: #02dd5d;
+        color: white;
+        font-size: 18px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+input[type="submit"]:hover {
+        background-color: #014b1f;
+}
+
+input[type="submit"]:active {
+        background-color: #62a17b;
+}
+
+option {
+        border-radius: 18px;
+        color: #00491e;
+        padding: 12px;
+        font-size: 14px;
+        font-weight: 100;
+}
+
+select {
+        background-color: transparent;
+}
+
+/* End inout box css */
+/* END css for section */
+
+
+/* Span  */
+span {
+        margin-top: -4px;
+        margin-left: 2px;
+        font-size: 12px;
+        color: orangered;
+        text-transform: capitalize;
+}
+
+/* End Span */
+
+/* Table */
+
+.expenseTable {
+        margin: 40px auto;
+        border-radius: 12px;
+        overflow-x: auto;
+        padding: 10px;
+
+}
+
+.expenseTable table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 8px;
+        height: 10%;
+}
+
+.expenseTable th {
+        background-color: #000;
+        color: #fff;
+        padding: 12px 16px;
+        text-align: left;       
+        font-weight: 600;
+          table-layout: fixed;   
+
+}
+
+.expenseTable td {
+        padding: 12px 16px;
+        text-align: left;
+}
+
+.expenseTable tr {
+        transition: all 0.5s;
+}
+
+.expenseTable button {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+}
+
+/* Button */
+.edit-btn:hover {
+        background-color: rgb(119, 119, 233);
+        color: #fff;
+}
+
+.delete-btn:hover {
+        background-color: rgb(255, 117, 117);
+        color: #fff;
+}
+
+/* End Table */
+
+/* Information section */
+.displayData {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 48px;
+    flex-wrap: wrap; 
+    gap: 20px;
+}
+
+.displayData div {
+    background-color: #1E1E2F;
+    padding: 16px 28px;
+    color: #FFFFFF;
+    border-radius: 18px;
+    min-width: 180px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.displayData div:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+.displayData div h4 {
+    font-size: 14px;
+    margin: 0;
+    color: #FFFFFF;
+}
+
+.displayData div p {
+    font-size: 18px;
+    text-align: right;
+    padding-top: 12px;
+    color: #00D8A0; 
+    font-weight: 800;
+}
+
+
+       
+.amountdata{
+        cursor: pointer;
+}
