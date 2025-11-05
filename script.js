@@ -281,15 +281,7 @@ table.addEventListener("click", (e) => {
     // handling amount sorting
 
     // Working on delete button
-    if (e.target.classList.contains("delete-btn")) {
-        if (confirm("Are You Sure!")) {
-            const ids = e.target.dataset.index;
-            expenseList = expenseList.filter(item => item.id != ids);
-            localStorage.setItem('expenseList', JSON.stringify(expenseList))
-            renderTable();
-            alert("DateRow deleted succefully!")
-        }
-    }
+   
     // Working on edit button
     if (e.target.classList.contains("edit-btn")) {
 
@@ -490,6 +482,7 @@ table.addEventListener("click", e => {
             expenseList = expenseList.filter(item => item.id != id);
             localStorage.setItem('expenseList', JSON.stringify(expenseList));
             renderTable();
+            alert("Expense is delted!")
         }
     } else if (e.target.classList.contains("edit-btn")) {
         const id = e.target.dataset.index;
