@@ -279,7 +279,7 @@ function renderTable() {
 // Delting the obejct from the list
 table.addEventListener("click", (e) => {
     // handling amount sorting
-        
+
     // Working on delete button
     if (e.target.classList.contains("delete-btn")) {
         if (confirm("Are You Sure!")) {
@@ -430,16 +430,16 @@ function renderTable() {
     const selectedDate = document.getElementById("dateFilter").value;
     if (selectedDate) {
         filteredList = filteredList.filter(e => {
-            const [d,m,y] = e.currentDate.split("-");
-            const itemDate = `${y}-${m.padStart(2,"0")}-${d.padStart(2,"0")}`;
+            const [d, m, y] = e.currentDate.split("-");
+            const itemDate = `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
             return itemDate === selectedDate;
         });
     }
 
     // Sort by amount if requested
-    if (sortState["Amount"] === 1) filteredList.sort((a,b)=>Number(a.amount)-Number(b.amount));
-    else if (sortState["Amount"] === 2) filteredList.sort((a,b)=>Number(b.amount)-Number(a.amount));
-    else filteredList.sort((a,b)=>Number(b.id)-Number(a.id)); // default ID descending
+    if (sortState["Amount"] === 1) filteredList.sort((a, b) => Number(a.amount) - Number(b.amount));
+    else if (sortState["Amount"] === 2) filteredList.sort((a, b) => Number(b.amount) - Number(a.amount));
+    else filteredList.sort((a, b) => Number(b.id) - Number(a.id)); // default ID descending
 
     table.innerHTML = `<tr>
         <th>Date</th>
@@ -485,7 +485,7 @@ table.addEventListener("click", e => {
 //------------------- Delete/Edit buttons -------------------
 table.addEventListener("click", e => {
     if (e.target.classList.contains("delete-btn")) {
-        if(confirm("Are you sure?")) {
+        if (confirm("Are you sure?")) {
             const id = e.target.dataset.index;
             expenseList = expenseList.filter(item => item.id != id);
             localStorage.setItem('expenseList', JSON.stringify(expenseList));
@@ -494,15 +494,126 @@ table.addEventListener("click", e => {
     } else if (e.target.classList.contains("edit-btn")) {
         const id = e.target.dataset.index;
         const item = expenseList.find(i => i.id == id);
-        if(item){
+        if (item) {
             document.getElementsByName('id')[0].value = item.id;
             document.getElementsByName('description')[0].value = item.description;
             document.getElementsByName('amount')[0].value = item.amount;
             document.getElementsByName('category')[0].value = item.category;
             document.getElementsByName('paymentMethod')[0].value = item.paymentMethod;
             document.getElementsByName('Button')[0].value = "Update";
-            expenseObject = {...item};
+            expenseObject = { ...item };
         }
     }
-});
+}); // Pagination variables
+let currentPage = 1;
+const rowsPerPage = 5; // Number of rows per page
 
+// Updated renderTable with pagination
+function renderTable() {
+    let filteredList = [...expenseList];
+
+    // Apply filters
+    const selectedCategory = categoryFilter.value;
+    if (selectedCategory !== "") filteredList = filteredList.filter(e => e.category === selectedCategory);
+
+    const selectedPayment = paymentFilter.value;
+    if (selectedPayment !== "") filteredList = filteredList.filter(e => e.paymentMethod === selectedPayment);
+
+    const selectedDate = document.getElementById("dateFilter").value;
+    if (selectedDate) {
+        filteredList = filteredList.filter(e => {
+            const [d, m, y] = e.currentDate.split("-");
+            const itemDate = `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
+            return itemDate === selectedDate;
+        });
+    }
+
+    // Sort by amount if requested
+    if (sortState["Amount"] === 1) filteredList.sort((a, b) => Number(a.amount) - Number(b.amount));
+    else if (sortState["Amount"] === 2) filteredList.sort((a, b) => Number(b.amount) - Number(a.amount));
+    else filteredList.sort((a, b) => Number(b.id) - Number(a.id)); // default ID descending
+
+    // Pagination calculations
+    const totalPages = Math.ceil(filteredList.length / rowsPerPage);
+    if (currentPage > totalPages) currentPage = totalPages || 1; // reset if page exceeds
+
+    const start = (currentPage - 1) * rowsPerPage;
+    const paginatedList = filteredList.slice(start, start + rowsPerPage);
+
+    // Render table header
+    table.innerHTML = `<tr>
+        <th>Date</th>
+        <th>InsertID</th>
+        <th>Description</th>
+        <th class="amountdata">Amount</th>
+        <th>Category</th>
+        <th>Payment Method</th>
+        <th>Action</th>
+    </tr>`;
+
+    // Render paginated rows
+    paginatedList.forEach(item => {
+        table.innerHTML += `<tr>
+            <td>${item.currentDate}</td>
+            <td>${item.id}</td>
+            <td>${item.description}</td>
+            <td>${Number(item.amount).toLocaleString('en-IN')}</td>
+            <td>${expenseCategories[item.category]}</td>
+            <td>${paymentMethods[item.paymentMethod]}</td>
+            <td>
+                <button class="edit-btn" data-index=${item.id}>Edit</button>
+                <button class="delete-btn" data-index=${item.id}>Delete</button>
+            </td>
+        </tr>`;
+    });
+
+    // Update expense summary
+    updateExpenseSummary();
+
+    // Render pagination
+    renderPagination(totalPages);
+}
+
+// Pagination rendering
+function renderPagination(totalPages) {
+    let paginationDiv = document.querySelector(".pagination");
+    if (!paginationDiv) {
+        paginationDiv = document.createElement("div");
+        paginationDiv.className = "pagination";
+        paginationDiv.style.textAlign = "center";
+        paginationDiv.style.marginTop = "10px";
+        tableSection.appendChild(paginationDiv);
+    }
+
+    paginationDiv.innerHTML = "";
+
+    // Previous button
+    const prevBtn = document.createElement("button");
+    prevBtn.textContent = "Previous";
+    prevBtn.disabled = currentPage === 1;
+    prevBtn.addEventListener("click", () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderTable();
+        }
+    });
+    paginationDiv.appendChild(prevBtn);
+
+    // Current page / total pages display
+    const pageInfo = document.createElement("span");
+    pageInfo.textContent = `  Page ${currentPage}  of  ${totalPages}  `;
+    pageInfo.style.margin = "0 5px";
+    paginationDiv.appendChild(pageInfo);
+
+    // Next button
+    const nextBtn = document.createElement("button");
+    nextBtn.textContent = "Next";
+    nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+    nextBtn.addEventListener("click", () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderTable();
+        }
+    });
+    paginationDiv.appendChild(nextBtn);
+}
